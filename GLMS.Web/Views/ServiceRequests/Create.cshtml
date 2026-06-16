@@ -1,0 +1,79 @@
+@model GLMS.Shared.Models.ServiceRequest
+
+<h1>Add Service Request</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div asp-validation-summary="All" class="alert alert-danger"></div>
+}
+
+<div class="alert alert-info">
+    <strong>Workflow Rule:</strong>
+    Service Requests can only be created for contracts with a status of
+    <strong>Active</strong> or <strong>Draft</strong>.
+    Requests for <strong>Expired</strong> or <strong>On Hold</strong> contracts will be blocked.
+</div>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="ContractId" class="form-label">Contract</label>
+        <select asp-for="ContractId" class="form-control" asp-items="ViewBag.ContractId">
+            <option value="">-- Select Contract --</option>
+        </select>
+        <span asp-validation-for="ContractId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UsdAmount" class="form-label">USD Amount</label>
+        <input asp-for="UsdAmount" id="usdAmount" class="form-control" />
+        <span asp-validation-for="UsdAmount" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Current USD to ZAR Rate</label>
+        <input id="exchangeRate"
+               value="@ViewBag.ExchangeRate"
+               class="form-control"
+               readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Estimated ZAR Cost</label>
+        <input id="zarCost" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Save Request
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Back
+    </a>
+</form>
+
+<script>
+    const usdInput = document.getElementById("usdAmount");
+    const rateInput = document.getElementById("exchangeRate");
+    const zarInput = document.getElementById("zarCost");
+
+    function calculateZar() {
+        const usd = parseFloat(usdInput.value) || 0;
+        const rate = parseFloat(rateInput.value) || 0;
+        zarInput.value = "R " + (usd * rate).toFixed(2);
+    }
+
+    usdInput.addEventListener("input", calculateZar);
+    calculateZar();
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

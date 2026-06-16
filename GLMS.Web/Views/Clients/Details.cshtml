@@ -1,0 +1,35 @@
+@model GLMS.Shared.Models.Client
+
+<h1>Client Details</h1>
+
+<div class="card p-3">
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Contact:</strong> @Model.ContactDetails</p>
+    <p><strong>Region:</strong> @Model.Region</p>
+</div>
+
+<h3 class="mt-4">Contracts</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service Level</th>
+            <th>Status</th>
+            <th>Start</th>
+            <th>End</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contract in Model.Contracts)
+        {
+            <tr>
+                <td>@contract.ServiceLevel</td>
+                <td>@contract.Status</td>
+                <td>@contract.StartDate.ToShortDateString()</td>
+                <td>@contract.EndDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Back</a>

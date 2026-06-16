@@ -1,0 +1,87 @@
+@model GLMS.Shared.Models.ServiceInquiry
+
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<section class="page-header">
+    <h1>Contact TechMove Logistics</h1>
+    <p>Submit a logistics query and our team will assist with your service request.</p>
+</section>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card p-4">
+            <h4>Submit a Logistics Query</h4>
+
+            <form asp-action="Contact" method="post">
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CompanyName" class="form-label"></label>
+                    <input asp-for="CompanyName" class="form-control" />
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ServiceType" class="form-label"></label>
+                    <select asp-for="ServiceType" class="form-control">
+                        <option value="">-- Select Service --</option>
+                        <option>International Freight</option>
+                        <option>Contract Logistics</option>
+                        <option>Service Request Support</option>
+                        <option>Other</option>
+                    </select>
+                    <span asp-validation-for="ServiceType" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Message" class="form-label"></label>
+                    <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Submit Query
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <img src="~/images/contact-office.jpg"
+             class="img-fluid rounded-4 shadow mb-4"
+             alt="TechMove logistics support office" />
+
+        <div class="card p-4">
+            <h4>Contact Details</h4>
+            <p><strong>Email:</strong> support@techmove-logistics.com</p>
+            <p><strong>Phone:</strong> +27 21 555 1200</p>
+            <p><strong>Location:</strong> Cape Town, South Africa</p>
+            <p><strong>Business Hours:</strong> Monday - Friday, 08:00 - 17:00</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

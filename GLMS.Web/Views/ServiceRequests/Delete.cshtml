@@ -1,0 +1,29 @@
+@model GLMS.Shared.Models.ServiceRequest
+
+<h1>Delete Service Request</h1>
+
+<div class="alert alert-warning">
+    <p>Are you sure you want to delete this service request?</p>
+
+    <p>
+        <strong>Client:</strong> @Model.Contract?.Client?.Name <br />
+        <strong>Contract:</strong> @Model.Contract?.ServiceLevel <br />
+        <strong>Contract Status:</strong> @Model.Contract?.Status <br />
+        <strong>Description:</strong> @Model.Description <br />
+        <strong>USD Amount:</strong> $@Model.UsdAmount <br />
+        <strong>ZAR Cost:</strong> R @Model.Cost <br />
+        <strong>Request Status:</strong> @Model.Status
+    </p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ServiceRequestId" />
+
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>

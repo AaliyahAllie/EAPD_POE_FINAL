@@ -1,0 +1,31 @@
+@model GLMS.Shared.Models.Contract
+
+<h1>Delete Contract</h1>
+
+<div class="alert alert-warning">
+    <p>Are you sure you want to delete this contract?</p>
+    <p>
+        <strong>Service Level:</strong> @Model.ServiceLevel <br />
+        <strong>Status:</strong> @Model.Status <br />
+        <strong>Client:</strong> @Model.Client?.Name
+    </p>
+
+    @if (Model.ServiceRequests != null && Model.ServiceRequests.Any())
+    {
+        <p class="text-danger">
+            This will also delete @Model.ServiceRequests.Count linked service request(s).
+        </p>
+    }
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ContractId" />
+
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>

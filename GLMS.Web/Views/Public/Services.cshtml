@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Our Services";
+}
+
+<section class="page-header">
+    <h1>Our Logistics Services</h1>
+    <p>Flexible logistics solutions designed for international businesses and long-term contract support.</p>
+</section>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card service-card h-100">
+            <img src="~/images/service-freight.jpg"
+                 class="service-img"
+                 alt="International freight containers" />
+
+            <div class="p-4">
+                <h4>International Freight Coordination</h4>
+                <p>
+                    We assist with global freight movement across multiple regions and trade routes,
+                    helping businesses move goods safely and efficiently.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card service-card h-100">
+            <img src="~/images/service-contracts.jpg"
+                 class="service-img"
+                 alt="Contract logistics warehouse" />
+
+            <div class="p-4">
+                <h4>Contract Logistics</h4>
+                <p>
+                    We provide contract-based logistics services for long-term business clients,
+                    ensuring structured service levels and compliance tracking.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card service-card h-100">
+            <img src="~/images/service-support.jpg"
+                 class="service-img"
+                 alt="Logistics support team" />
+
+            <div class="p-4">
+                <h4>Service Request Management</h4>
+                <p>
+                    Customers can submit logistics queries and request support from our service team
+                    for freight, contract, and delivery-related needs.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="cta-section mt-5">
+    <h2>Need logistics support?</h2>
+    <p>Submit a service query and our logistics team will review your request.</p>
+    <a asp-controller="Public" asp-action="Contact" class="btn btn-primary">Contact Us</a>
+</section>

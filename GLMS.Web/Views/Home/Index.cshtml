@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<section class="admin-hero">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <p class="hero-label">Admin Portal</p>
+            <h1>Global Logistics Management System</h1>
+            <p>
+                Manage TechMove Logistics clients, contracts, signed agreements,
+                service requests, and operational workflow rules from one secure dashboard.
+            </p>
+
+            <div class="hero-buttons">
+                <a asp-controller="Clients" asp-action="Index" class="btn btn-primary">Manage Clients</a>
+                <a asp-controller="Contracts" asp-action="Index" class="btn btn-light text-primary fw-semibold">View Contracts</a>
+            </div>
+        </div>
+
+        <div class="col-lg-5 mt-4 mt-lg-0">
+            <img src="~/images/admin-dashboard.jpg"
+                 class="img-fluid rounded-4 shadow admin-hero-img"
+                 alt="Admin logistics dashboard" />
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-grid mt-5">
+    <div class="dashboard-card">
+        <h3>@ViewBag.ClientCount</h3>
+        <p>Total Clients</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>@ViewBag.ContractCount</h3>
+        <p>Total Contracts</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>@ViewBag.ActiveContracts</h3>
+        <p>Active Contracts</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>@ViewBag.ServiceRequestCount</h3>
+        <p>Service Requests</p>
+    </div>
+</section>
+
+<section class="feature-section mt-5">
+    <h2>Admin System Features</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h4>Client Management</h4>
+            <p>Store client names, contact details, regions, and related contracts.</p>
+        </div>
+
+        <div class="feature-card">
+            <h4>Contract Workflow</h4>
+            <p>Prevent service requests from being created for expired or on-hold contracts.</p>
+        </div>
+
+        <div class="feature-card">
+            <h4>PDF Agreements</h4>
+            <p>Upload and download signed PDF agreements for each contract.</p>
+        </div>
+
+        <div class="feature-card">
+            <h4>Currency Conversion</h4>
+            <p>Convert USD service request costs into ZAR using live exchange rates.</p>
+        </div>
+    </div>
+</section>

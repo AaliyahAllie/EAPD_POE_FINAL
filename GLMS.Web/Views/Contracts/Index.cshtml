@@ -1,0 +1,83 @@
+@model IEnumerable<GLMS.Shared.Models.Contract>
+@using GLMS.Shared.Models
+
+<h1>Contracts</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Add Contract</a>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<form method="get" class="row mb-4">
+    <div class="col-md-3">
+        <label>Start Date</label>
+        <input type="date" name="startDate" class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label>End Date</label>
+        <input type="date" name="endDate" class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label>Status</label>
+        <select name="status" class="form-control">
+            <option value="">All</option>
+            @foreach (var status in Enum.GetValues(typeof(ContractStatus)))
+            {
+                <option value="@status">@status</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-dark">Search</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Service Level</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Agreement</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contract in Model)
+        {
+            <tr>
+                <td>@contract.Client?.Name</td>
+                <td>@contract.ServiceLevel</td>
+                <td>@contract.Status</td>
+                <td>@contract.StartDate.ToShortDateString()</td>
+                <td>@contract.EndDate.ToShortDateString()</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(contract.SignedAgreementPath))
+                    {
+                        <a asp-action="DownloadAgreement" asp-route-id="@contract.ContractId" class="btn btn-sm btn-outline-primary">Download</a>
+                    }
+                    else
+                    {
+                        <span>No file</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@contract.ContractId" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@contract.ContractId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@contract.ContractId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

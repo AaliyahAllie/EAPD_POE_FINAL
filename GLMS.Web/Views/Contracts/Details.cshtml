@@ -1,0 +1,42 @@
+@model GLMS.Shared.Models.Contract
+
+<h1>Contract Details</h1>
+
+<div class="card p-3">
+    <p><strong>Client:</strong> @Model.Client?.Name</p>
+    <p><strong>Service Level:</strong> @Model.ServiceLevel</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Start Date:</strong> @Model.StartDate.ToShortDateString()</p>
+    <p><strong>End Date:</strong> @Model.EndDate.ToShortDateString()</p>
+
+    @if (!string.IsNullOrEmpty(Model.SignedAgreementPath))
+    {
+        <a asp-action="DownloadAgreement" asp-route-id="@Model.ContractId" class="btn btn-outline-primary">Download Signed Agreement</a>
+    }
+</div>
+
+<h3 class="mt-4">Service Requests</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>USD</th>
+            <th>ZAR Cost</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model.ServiceRequests)
+        {
+            <tr>
+                <td>@request.Description</td>
+                <td>@request.UsdAmount</td>
+                <td>@request.Cost</td>
+                <td>@request.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Back</a>

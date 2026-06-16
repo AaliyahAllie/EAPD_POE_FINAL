@@ -1,0 +1,80 @@
+@model IEnumerable<GLMS.Shared.Models.ServiceRequest>
+
+<h1>Service Requests</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<a asp-action="Create" class="btn btn-primary mb-3">Add Service Request</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Contract Status</th>
+            <th>Description</th>
+            <th>USD Amount</th>
+            <th>Rate</th>
+            <th>ZAR Cost</th>
+            <th>Request Status</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.Contract?.Client?.Name</td>
+
+                <td>
+                    @if (request.Contract?.Status == GLMS.Shared.Models.ContractStatus.Active)
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else if (request.Contract?.Status == GLMS.Shared.Models.ContractStatus.Draft)
+                    {
+                        <span class="badge bg-secondary">Draft</span>
+                    }
+                    else if (request.Contract?.Status == GLMS.Shared.Models.ContractStatus.Expired)
+                    {
+                        <span class="badge bg-danger">Expired</span>
+                    }
+                    else if (request.Contract?.Status == GLMS.Shared.Models.ContractStatus.OnHold)
+                    {
+                        <span class="badge bg-warning text-dark">On Hold</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-dark">Unknown</span>
+                    }
+                </td>
+
+                <td>@request.Description</td>
+                <td>$@request.UsdAmount</td>
+                <td>@request.ExchangeRate</td>
+                <td>R @request.Cost</td>
+                <td>@request.Status</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@request.ServiceRequestId"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@request.ServiceRequestId"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
